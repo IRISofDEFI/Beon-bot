@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chatbot</title>
+    <style >
+          body {
+            font-family: Arial, sans-serif;
+            margin-top: 0;
+            margin-bottom: 0;
+          }
+
+          .send-button {
+            background-color: rgb(22, 135, 88);
+            color: white;
+            padding: 12px 20px;
+            margin-left: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 15px;
+          }
+          .chat-input {
+            padding: 12px 15px;
+            border-width: 1px;
+            border-radius: 10px;
+            font-size: 15px;
+            flex-grow: 1;
+          }
+          .chat-input-container {
+            display: flex;
+            margin-bottom: 60px;
+          }
+          .chatbot-app {
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+          }
+          .chat-message-user {
+            display: flex;
+            justify-content: flex-end;
+            text-align: right;
+            margin: 10px;
+            padding: 10px;
+            align-items: start;
+          }
+          .chat-message-text {
+            max-width: 60%;
+            background-color: rgb(238, 238, 238);
+            padding: 15px;
+            border-radius: 10px;
+            margin-right: 10px;
+            margin-left: 10px;
+            margin-bottom: 20px;
+          }
+          .chat-message-robot {
+            display: flex;
+            align-items: start;
+          
+          }
+          .chat-message-profile {
+            width: 45px;
+            
+          }
+          .chat-messages-container {
+            flex-grow: 1;
+            margin-top: 20px;
+            overflow: scroll;
+            scrollbar-width: none;
+          }
+    </style>
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <script src="react-basics.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/chatbot.js"></script>
+  
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel">
+
+      
+
+        function ChatMessage({message, sender}){
+          // const message = props.message;
+          // const sender = props.sender;
+          // const {message, sender} = props; // destructuring assignment that does the same thing as above two lines it just looks cleaner. Also we can do it directly in the function parameters as shown above. 
+          // all this are called props destructuring. there are optional and equivalent ways to do the same thing.
+        
+          /*
+          if (sender === "robot") {
+            return (
+              <div>
+                <img src="robot.png" alt="robot image" width="50" />
+                {message}
+              </div>
+            );
+          } */
+
+          return (
+            <div className={ 
+                sender === "user" 
+                ? "chat-message-user" 
+                : "chat-message-robot"
+              }>
+                {sender === "robot" && 
+                    (<img src="robot.png"
+                        alt="robot image"
+                        className="chat-message-profile"
+                    />
+                    )}
+                    <div className="chat-message-text">
+                      {message}
+                    </div>   
+                
+                {sender === "user" && 
+                  (<img src="user.png" 
+                  alt="user image" 
+                  className="chat-message-profile"
+                />
+                )}
+            </div>
+          );
+        }
+
+          function ChatMessages ({chatMessages}){
+              const chatMessageRef = React.useRef(null);
+
+            React.useEffect(() => {
+              const containerElem = chatMessageRef.current; // we are accessing the current value of the ref using the current property.
+              if (containerElem) {
+                containerElem.scrollTop = containerElem.scrollHeight;
+              }
+            }, [chatMessages]);
+            
+              return (
+                <div className="chat-messages-container" 
+                  ref={chatMessageRef}>
+                    {chatMessages.map( (chatMessage) => {
+                      return (
+                            <ChatMessage 
+                              message={chatMessage.message} 
+                              sender={chatMessage.sender} 
+                              key={chatMessage.id} // remember we use the curly braces to embed javascript expressions inside jsx, and because we want to save the result of this code as a key. 
+                              // and the key is a special prop in react that helps it identify which items have changed, are added, or are removed.
+                            />
+                          );
+                        })}
+              </div>
+                );
+        };
+            
+        
+      const container = document.querySelector('.js-container');
+      ReactDOM.createRoot(container).render(<App />);
+    </script>
+  </body>
+</html>
