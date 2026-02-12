@@ -1,7 +1,7 @@
     import './checkout-header.css';
     import dayjs from 'dayjs';
     import axios from 'axios';
-    import { useEffect, useState } from 'react';
+    import { useEffect, useState, } from 'react';
     import './CheckoutPage.css';
     import { formatMoney } from '../utils/money';
 
