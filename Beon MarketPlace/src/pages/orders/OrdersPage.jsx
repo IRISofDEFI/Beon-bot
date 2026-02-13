@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { useState, useEffect, Fragment } from 'react';
-import { Header } from '../components/Header';
+import { Header } from '../../components/Header';
 import './OrdersPage.css';
 import dayjs from 'dayjs';
-import { formatMoney } from '../utils/money';
+import { formatMoney } from '../../utils/money';
 
 export function OrdersPage({ cart }) {
 
@@ -36,7 +36,6 @@ return (
                     <div className="order-header-label">Order Placed:</div>
                     <div>{dayjs(order.orderTimeMs).format('MMMM D')}</div>
                 </div>
-
                 <div className="order-total">
                     <div className="order-header-label">Total:</div>
                     <div>{formatMoney(order.totalCostCents)}</div>
@@ -81,7 +80,6 @@ return (
                         </span>
                         </button>
                     </div>
-
                     <div className="product-actions">
                         <a href="/tracking">
                         <button className="track-package-button button-secondary">
