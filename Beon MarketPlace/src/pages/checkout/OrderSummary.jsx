@@ -3,7 +3,7 @@ import { formatMoney } from "../../utils/money";
 import { DeliveryOptions } from "./DeliveryOptions";
 
 
-export function OrderSummary({cart, deliveryOptions}) {
+export function OrderSummary({cart, deliveryOptions, loadCart}) {
     return(
             <div className="order-summary">
             
@@ -43,7 +43,7 @@ export function OrderSummary({cart, deliveryOptions}) {
                             </span>
                         </div>
                         </div>
-                        <DeliveryOptions deliveryOptions={deliveryOptions} cartItem={cartItem}/>
+                        <DeliveryOptions deliveryOptions={deliveryOptions} cartItem={cartItem} loadCart={loadCart}/>
                     </div>
                     </div>
             
